@@ -18,7 +18,7 @@ function enter(){
             $password = trim($password);
 
             // подключение к БД
-            include("db.php");
+            require("db.php");
             //извлекаем из базы все данные о пользователе с введенным email
             $query_statement = $pdo->prepare('SELECT * FROM users WHERE email=:email');
             $query_statement->execute(['email' => $email]);

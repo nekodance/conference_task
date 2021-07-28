@@ -2,7 +2,7 @@
 
 function mainQueryAdmin()
 {
-    include ("db.php");
+    require("db.php");
     $query_statement = $pdo->prepare('SELECT users.email, users.name, reports.* FROM reports, users WHERE users.id_user = reports.id_user');
     $query_statement->execute();
     $num_rows = $query_statement->rowCount();
@@ -39,7 +39,7 @@ function mainQueryAdmin()
 
 function mainQueryUser()
 {
-    include ("db.php");
+    require("db.php");
     echo "<div class='text-center'  ><a href='report_creation.php' class='btn' id='to_report_creation'>Сформировать заявку</a></div>";
     $query_statement = $pdo->prepare('SELECT title,subject,summary FROM reports WHERE id_user = :id_user');
     $query_statement->execute(['id_user'=>$_SESSION['id_user']]);

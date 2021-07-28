@@ -59,7 +59,7 @@ function saveUser()
         $email = trim($email);
         $password = trim($password);
         // подключаемся к базе
-        include ("db.php");
+        require("db.php");
         // проверка на существование пользователя с таким же email
 
         $query_statement = $pdo->prepare('SELECT id_user FROM users WHERE email=:email');

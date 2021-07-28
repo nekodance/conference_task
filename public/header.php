@@ -25,7 +25,7 @@
                 <div class="col text-center"  ><a href="index.php"  style="font-size: 1.3em;">Главная</a></div>
 
     <?php
-    include ('../handlers/logout.php');
+    require ('../handlers/logout.php');
 //    при нажатии на кнопку выход произойдет разлогин
     if (isset($_POST['logout'])) {
         logout();

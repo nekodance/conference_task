@@ -1,24 +1,32 @@
 <?php
-session_start();
 
-include 'header.php';
-include '../handlers/save_report.php';
+require_once ('../handlers/exceptions_error_handler.php');
 
-//Неавторизованный пользователь не имеет доступа
-if (empty($_SESSION['id_user'])) {
-    exit ("<a href='index.php' class='wrong_place' >Вам тут не место. Вернуться на главную.</a>");
-}
-//удаление мусора
-if (isset($_SESSION['title'])) {
-    unset($_SESSION['title']);
-}
-//при нажатии на кнопку будет исполняться код из save_report.php
-if (isset($_POST['submit'])) {
-    saveReport();
-}
-?>
+try{
+    session_start();
+} catch (Exception $e){
 
-<div class="wrapper" id="wrapper_rep_create">
+}
+
+try{
+    require ('header.php');
+    require ('../handlers/save_report.php');
+
+    //Неавторизованный пользователь не имеет доступа
+    if (empty($_SESSION['id_user'])) {
+        exit ("<a href='index.php' class='wrong_place' >Вам тут не место. Вернуться на главную.</a>");
+    }
+    //удаление мусора
+    if (isset($_SESSION['title'])) {
+        unset($_SESSION['title']);
+    }
+    //при нажатии на кнопку будет исполняться код из save_report.php
+    if (isset($_POST['submit'])) {
+        saveReport();
+    }
+    ?>
+
+    <div class="wrapper" id="wrapper_rep_create">
         <div class="header">
             <h3 class="sign-in">Создание заявки</h3>
             <br>
@@ -31,10 +39,10 @@ if (isset($_POST['submit'])) {
             </div>
             <br>
             <div>
-                <textarea class="brief" type="textarea"
-                          name="reporter_brief" id="reporter_brief"
-                          placeholder="Информация о докладчике..."
-                          style="width: 100%" rows="6" required><?php if(isset($_POST['reporter_brief'])){echo $_POST['reporter_brief'];}?></textarea>
+                    <textarea class="brief" type="textarea"
+                              name="reporter_brief" id="reporter_brief"
+                              placeholder="Информация о докладчике..."
+                              style="width: 100%" rows="6" required><?php if(isset($_POST['reporter_brief'])){echo $_POST['reporter_brief'];}?></textarea>
             </div>
             <br>
             <div class="select">
@@ -42,22 +50,22 @@ if (isset($_POST['submit'])) {
 
                 <select name="report_subject" id="report_subject">
                     <?php
-//                    опции для селекта берутся из конфигурационного файла
-                        $options = parse_ini_file("../configs/select_options.ini");
+                    //                    опции для селекта берутся из конфигурационного файла
+                    $options = parse_ini_file("../configs/select_options.ini");
 
-                        foreach ($options as $option) {
-                            echo "<option value='$option'>$option</option>";
-                        }
+                    foreach ($options as $option) {
+                        echo "<option value='$option'>$option</option>";
+                    }
                     ?>
                 </select>
             </div>
             <br>
             <div>
-                <textarea class="brief" type="textarea" name="report_brief" id="report_brief"
-                          placeholder="Краткое описание доклада..." style="width: 100%"
-                          rows="6" required><?php if(isset($_POST['report_brief'])){
-                              echo $_POST['report_brief'];
-                          }?></textarea>
+                    <textarea class="brief" type="textarea" name="report_brief" id="report_brief"
+                              placeholder="Краткое описание доклада..." style="width: 100%"
+                              rows="6" required><?php if(isset($_POST['report_brief'])){
+                            echo $_POST['report_brief'];
+                        }?></textarea>
             </div>
             <br>
             <div class="file_upload">
@@ -85,7 +93,25 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
 
+    <?php
+    require ('footer.php');?>
+
 <?php
-include 'footer.php';?>
+} catch (Exception $e) {
+    exit ("<a href='index.php' class='wrong_place' style='position:absolute;
+  width:100%;
+  top:50%;
+  text-align:center;
+  text-decoration: underline;
+  color: white;
+  font-size: 1.3em;
+  background-color: cornflowerblue;
+  height: 50px;
+  padding: 12px;' >Ошибка: что-то пошло не так! Вернуться на главную.</a>");
+}
+?>
+
+
+
 
 

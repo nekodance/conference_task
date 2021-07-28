@@ -2,9 +2,9 @@
 function saveReport()
 {
 //  подключение констант размеров (KB,MB,GB,TB)
-    include('defines.php');
+    require('defines.php');
     // подключение к БД
-    include("db.php");
+    require("db.php");
 
     if (isset($_POST['title'])) {
         $title = $_POST['title'];

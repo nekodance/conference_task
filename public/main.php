@@ -1,15 +1,19 @@
 <main style="background-color: aliceblue">
 
     <?php
-    session_start();
+    try{
+        session_start();
+    } catch (Exception $e){
+
+    }
 
     //  очистка мусора
     if (isset($_SESSION['title'])) {
         unset($_SESSION['title']);
     }
 
-    include ("../handlers/db.php");
-    include("../handlers/main_db_queries.php");
+    require ("../handlers/db.php");
+    require("../handlers/main_db_queries.php");
 
     //  для авторизованного пользователя выводится список заявок
     if (!empty($_SESSION['name']) and !empty($_SESSION['id_user'])) {
