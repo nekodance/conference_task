@@ -2,14 +2,7 @@
 require_once ('../handlers/exceptions_error_handler.php');
 
 try{
-    session_start();
-} catch (Exception $e){
-
-}
-
-try{
     require ('header.php');
-    require ('../handlers/enter.php');
 
     //авторизованный пользователь не имеет доступа к авторизации
     if (!empty($_SESSION['id_user'])) {
@@ -19,10 +12,7 @@ try{
     if (isset($_SESSION['title'])) {
         unset($_SESSION['title']);
     }
-    //при при попытке авторизации будет исполняться код из enter.php
-    if (isset($_POST['submit'])) {
-        enter();
-    }
+
     ?>
     <svg id="svg-source" height="0" version="1.1"  xmlns="http://www.w3.org/2000/svg"
          xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute">
@@ -109,7 +99,7 @@ try{
                     unset($_SESSION['error']);}?>
             </h1>
             <div>
-                <input type="submit" name="submit" value="Вход" />
+                <input type="submit" name="submit_enter" value="Вход" />
             </div>
 
             <div class="clear"></div>
@@ -120,6 +110,7 @@ try{
     require ('footer.php');?>
 <?php
 } catch (Exception $e) {
+//    print($e);
     exit ("<a href='index.php' class='wrong_place' style='position:absolute;
   width:100%;
   top:50%;

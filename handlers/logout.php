@@ -2,18 +2,20 @@
 require_once ('../handlers/exceptions_error_handler.php');
 function logout()
 {
-    try{
-        session_start();
-    } catch (Exception $e){
 
+//  сброс $_SESSION
+    $_SESSION = array();
+
+// сброс cookie, к которой привязана сессия (если привязана)
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
     }
-//    при разлогине удаляем данные о текущем пользователе из $_SESSION
-    unset($_SESSION['email']);
-    unset($_SESSION['id_user']);
-    unset($_SESSION['name']);
-    unset($_SESSION['isAdmin']);
-    unset($_SESSION['title']);
 
+// уничтожение сессии
     session_destroy();
 
     header('Location: index.php');

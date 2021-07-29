@@ -2,16 +2,11 @@
 require_once ('../handlers/exceptions_error_handler.php');
 
 try{
-    session_start();
-} catch (Exception $e){
-
-}
-
-try{
     require('header.php');
     require('main.php');
     require('footer.php');
 } catch (Exception $e){
+//    print($e);
     exit ("<a href='index.php' class='wrong_place' style='position:absolute;
   width:100%;
   top:50%;

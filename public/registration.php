@@ -1,25 +1,15 @@
 <?php
 require_once '../handlers/exceptions_error_handler.php';
 
-try{
-    session_start();
-} catch (Exception $e){
-
-}
-
 
 try{
     require ('header.php');
-    require ('../handlers/save_user.php');
 
     //Авторизованный пользователь не имеет доступа к регистрации
     if (!empty($_SESSION['id_user'])) {
         exit ("<a href='index.php' class='wrong_place' >Вам тут не место. Вернуться на главную.</a>");
     }
-    //при нажатии на кнопку будет исполняться код из save_user.php
-    if (isset($_POST['submit'])) {
-        saveUser();
-    }
+
     ?>
     <svg id="svg-source" height="0" version="1.1"  xmlns="http://www.w3.org/2000/svg"
          xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute">
@@ -135,7 +125,7 @@ try{
             </h1>
 
             <div>
-                <input type="submit" name="submit" value="Вход" />
+                <input type="submit" name="submit_registration" value="Вход" />
             </div>
 
         </form>
@@ -146,6 +136,7 @@ try{
 
 <?php
 } catch (Exception $e) {
+//    print($e);
     exit ("<a href='index.php' class='wrong_place' style='position:absolute;
   width:100%;
   top:50%;

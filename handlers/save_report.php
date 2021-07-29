@@ -101,6 +101,13 @@ function saveReport()
                     'report_brief' => $report_brief,'file' => $file,'file2' => $file2]);
 
                 if ($result == 'true') {
+                    if(!is_dir("../files/presentations")) {
+                        mkdir("../files/presentations", 0777, true);
+                    }
+                    if(!is_dir("../files/texts")) {
+                        mkdir("../files/texts", 0777, true);
+                    }
+
                     move_uploaded_file($_FILES['text_file']['tmp_name'], $file_server_dir);
                     move_uploaded_file($_FILES['presentation_file']['tmp_name'], $file2_server_dir);
 

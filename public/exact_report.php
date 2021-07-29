@@ -3,20 +3,14 @@
 require_once ('../handlers/exceptions_error_handler.php');
 
 try{
-    session_start();
-} catch (Exception $e){
 
-}
-
-try{
     require('header.php');
+    require("../handlers/exact_report_downloads.php");
 
     //неавторизованный пользователь не имеет доступа к просмотру заявок
     if (empty($_SESSION['id_user']) or (empty($_SESSION['title']) and empty($_POST['title']))) {
         exit ("<a href='index.php' class='wrong_place' >Вам тут не место. Вернуться на главную.</a>");
     }
-    require("../handlers/db.php");
-    require("../handlers/exact_report_downloads.php");
 
     ?>
 
@@ -41,8 +35,15 @@ try{
             <br>
             <div>
                 <h1><span>Краткое описание доклада</span><br><br> <?= $query_row['summary']?></h1>
-
             </div>
+            <br>
+            <h1 style="color: red">
+                <?php if (isset($_SESSION['error'])) {
+                    foreach ($_SESSION['error'] as $value )
+                        echo "$value<br>";
+                    unset($_SESSION['error']);
+                }?>
+            </h1>
 
 
             <div>

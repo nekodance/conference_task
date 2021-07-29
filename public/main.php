@@ -1,18 +1,11 @@
 <main style="background-color: aliceblue">
 
     <?php
-    try{
-        session_start();
-    } catch (Exception $e){
-
-    }
 
     //  очистка мусора
     if (isset($_SESSION['title'])) {
         unset($_SESSION['title']);
     }
-
-    require ("../handlers/db.php");
     require("../handlers/main_db_queries.php");
 
     //  для авторизованного пользователя выводится список заявок

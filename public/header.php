@@ -1,3 +1,28 @@
+<?php
+require_once ('../handlers/session_start.php');
+
+// вынос редиректов перед версткой
+require("../handlers/db.php");
+
+require ('../handlers/logout.php');
+if (isset($_POST['logout'])) {
+    logout();
+}
+require ('../handlers/enter.php');
+if (isset($_POST['submit_enter'])) {
+        enter();
+}
+require ('../handlers/save_user.php');
+if (isset($_POST['submit_registration'])) {
+        saveUser();
+}
+require ('../handlers/save_report.php');
+if (isset($_POST['submit_report_creation'])) {
+    saveReport();
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,11 +50,6 @@
                 <div class="col text-center"  ><a href="index.php"  style="font-size: 1.3em;">Главная</a></div>
 
     <?php
-    require ('../handlers/logout.php');
-//    при нажатии на кнопку выход произойдет разлогин
-    if (isset($_POST['logout'])) {
-        logout();
-    }
 //    для авторизованных пользователей показаны: приветствие, имя пользователя, кнопка выход
     if (!empty($_SESSION['name']) and !empty($_SESSION['id_user'])) {
         print("<div class='col text-center' style='font-size: 1.3em'>Здравствуйте, $_SESSION[name]</div>".

@@ -1,16 +1,8 @@
 <?php
-
 require_once ('../handlers/exceptions_error_handler.php');
 
 try{
-    session_start();
-} catch (Exception $e){
-
-}
-
-try{
     require ('header.php');
-    require ('../handlers/save_report.php');
 
     //Неавторизованный пользователь не имеет доступа
     if (empty($_SESSION['id_user'])) {
@@ -20,10 +12,7 @@ try{
     if (isset($_SESSION['title'])) {
         unset($_SESSION['title']);
     }
-    //при нажатии на кнопку будет исполняться код из save_report.php
-    if (isset($_POST['submit'])) {
-        saveReport();
-    }
+
     ?>
 
     <div class="wrapper" id="wrapper_rep_create">
@@ -87,7 +76,7 @@ try{
             </h1>
             <br>
             <div>
-                <input name="submit" type="submit" value="Создать" />
+                <input name="submit_report_creation" type="submit" value="Создать" />
             </div>
             <div class="clear"></div>
         </form>
@@ -98,6 +87,7 @@ try{
 
 <?php
 } catch (Exception $e) {
+//    print($e);
     exit ("<a href='index.php' class='wrong_place' style='position:absolute;
   width:100%;
   top:50%;
