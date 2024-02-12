@@ -1,5 +1,5 @@
 <?php
-require_once ('../handlers/exceptions_error_handler.php');
+require_once ('exceptions_error_handler.php');
 function logout()
 {
 
@@ -18,7 +18,7 @@ function logout()
 // уничтожение сессии
     session_destroy();
 
-    header('Location: index.php');
+    header('Location: authorization.php');
     die();
 }
 

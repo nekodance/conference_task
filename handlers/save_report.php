@@ -4,7 +4,8 @@ function saveReport()
 //  подключение констант размеров (KB,MB,GB,TB)
     require('defines.php');
     // подключение к БД
-    require("db.php");
+    //    require("db.php");
+    global $pdo;
 
     if (isset($_POST['title'])) {
         $title = $_POST['title'];

@@ -1,5 +1,5 @@
 <?php
-require_once ('../handlers/exceptions_error_handler.php');
+require_once ('exceptions_error_handler.php');
 
 try{
     session_start();
